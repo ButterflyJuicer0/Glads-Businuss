@@ -26,7 +26,7 @@ function ShoppingCartPage() {
   const navigate = useNavigate();
   function getAddress() {
     axios
-      .get("http://localhost:8080/user/address/show", {
+      .get("http://localhost:8085/user/address/show", {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -37,7 +37,7 @@ function ShoppingCartPage() {
   }
   function getTotalPrice() {
     axios
-      .get("http://localhost:8080/user/shoppingcart/total", {
+      .get("http://localhost:8083/user/shoppingcart/total", {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -48,7 +48,7 @@ function ShoppingCartPage() {
   }
   function getShoppingCart() {
     axios
-      .get("http://localhost:8080/user/shoppingcart/show/dishes", {
+      .get("http://localhost:8083/user/shoppingcart/show/dishes", {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -61,7 +61,7 @@ function ShoppingCartPage() {
 
   function handleReset() {
     axios
-      .delete("http://localhost:8080/user/shoppingcart", {
+      .delete("http://localhost:8083/user/shoppingcart", {
         headers: { token: localStorage.getItem("token") },
       })
       .then(() => getShoppingCart());
@@ -71,7 +71,7 @@ function ShoppingCartPage() {
     setModalState(true);
     axios
       .put(
-        "http://localhost:8080/user/shoppingcart/add",
+        "http://localhost:8083/user/shoppingcart/add",
         {
           chefId: chefId,
           dishId: dishId,
@@ -92,7 +92,7 @@ function ShoppingCartPage() {
     setModalState(true);
     axios
       .put(
-        "http://localhost:8080/user/shoppingcart/remove",
+        "http://localhost:8083/user/shoppingcart/remove",
         {
           chefId: chefId,
           dishId: dishId,
@@ -114,7 +114,7 @@ function ShoppingCartPage() {
     console.log(localStorage.getItem("token"));
     axios
       .post(
-        "http://localhost:8080/user/order/submit",
+        "http://localhost:8083/user/order/submit",
         {
           addressId: form.currentAddress,
           remark: form.remark,
@@ -140,7 +140,7 @@ function ShoppingCartPage() {
             setCheckoutModalState(false);
             setInforamtionState(true);
             axios
-              .delete("http://localhost:8080/user/shoppingcart", {
+              .delete("http://localhost:8083/user/shoppingcart", {
                 headers: {
                   token: localStorage.getItem("token"),
                 },

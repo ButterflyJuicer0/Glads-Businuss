@@ -19,7 +19,6 @@ function LoginPage() {
   const navigate = useNavigate();
   // @ts-ignore
   const handleFromChange = (e) => {
-    console.log(e);
     setLoginForm({
       ...loginForm,
       [e.target.name]: e.target.value,

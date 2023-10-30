@@ -9,13 +9,14 @@ function ChefSelect() {
   const [chefs, setChefs] = useState([]);
   const [modalState, setModalState] = useState(false);
   const navigate = useNavigate();
+
   function handleModalClose() {
     setModalState(false);
   }
   useEffectOnce(() => {
     axios({
       method: "get",
-      url: "http://localhost:8080/user/chef",
+      url: "http://localhost:8082/user/chef",
       headers: {
         token: localStorage.getItem("token"),
       },
@@ -26,7 +27,7 @@ function ChefSelect() {
 
   useEffectOnce(() => {
     axios
-      .get("http://localhost:8080/user/category/show", {
+      .get("http://localhost:8082/user/category/show", {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -69,7 +70,7 @@ function ChefSelect() {
               className="btn btn-warning"
               onClick={() => {
                 axios({
-                  url: "http://localhost:8080/user/chef/",
+                  url: "http://localhost:8082/user/chef/",
                   method: "get",
                   headers: {
                     token: localStorage.getItem("token"),
@@ -90,7 +91,7 @@ function ChefSelect() {
                   className="btn btn-secondary"
                   onClick={() => {
                     axios({
-                      url: "http://localhost:8080/user/chef/" + category["id"],
+                      url: "http://localhost:8082/user/chef/" + category["id"],
                       method: "get",
                       headers: {
                         token: localStorage.getItem("token"),

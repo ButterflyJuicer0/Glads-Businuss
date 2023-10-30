@@ -32,7 +32,7 @@ function AddressManagementPage() {
     //获取当前地址列表
     setSpinnerState(true);
     axios
-      .get("http://localhost:8080/user/address/show", {
+      .get("http://localhost:8085/user/address/show", {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -63,7 +63,7 @@ function AddressManagementPage() {
       //Add new address
       axios
         .post(
-          "http://localhost:8080/user/address/add",
+          "http://localhost:8085/user/address/add",
           {
             consignee: form.consignee,
             detailLocation: form.detailLocation,
@@ -85,7 +85,7 @@ function AddressManagementPage() {
       //Modify current Address
       axios
         .put(
-          "http://localhost:8080/user/address/modify",
+          "http://localhost:8085/user/address/modify",
           {
             id: changeIdNumber,
             consignee: form.consignee,
@@ -115,7 +115,7 @@ function AddressManagementPage() {
     //修改当前地址为默认地址
     axios
       .put(
-        "http://localhost:8080/user/address/default",
+        "http://localhost:8085/user/address/default",
         {
           id: id,
           consignee: form.consignee,
@@ -237,7 +237,7 @@ function AddressManagementPage() {
             onClick={() => {
               axios({
                 method: "delete",
-                url: "http://localhost:8080/user/address/remove",
+                url: "http://localhost:8085/user/address/remove",
                 params: {
                   id: changeIdNumber,
                 },
