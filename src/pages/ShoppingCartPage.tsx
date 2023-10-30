@@ -17,7 +17,7 @@ function ShoppingCartPage() {
   const [checkoutModalState, setCheckoutModalState] = useState(false);
   const [totalPrice, setTotalPrice] = useState(0);
   const [addresses, setAddresses] = useState([]);
-  const [informationState, setInforamtionState] = useState(false);
+  const [informationState, setInformationState] = useState(false);
   const [message, setMessage] = useState("");
   const [form, setForm] = useState({
     currentAddress: "",
@@ -114,7 +114,7 @@ function ShoppingCartPage() {
     console.log(localStorage.getItem("token"));
     axios
       .post(
-        "http://localhost:8083/user/order/submit",
+        "http://localhost:8084/user/order/submit",
         {
           addressId: form.currentAddress,
           remark: form.remark,
@@ -131,14 +131,14 @@ function ShoppingCartPage() {
         if (res.status == 200) {
           if (res.data.code == 0) {
             setModalState(false);
-            setInforamtionState(true);
+            setInformationState(true);
             setMessage(res.data.msg);
             setCheckoutModalState(false);
           } else {
             setMessage("Order submitted");
             setModalState(false);
             setCheckoutModalState(false);
-            setInforamtionState(true);
+            setInformationState(true);
             axios
               .delete("http://localhost:8083/user/shoppingcart", {
                 headers: {
@@ -152,7 +152,7 @@ function ShoppingCartPage() {
         } else {
           setModalState(false);
           setMessage("InternetError");
-          setInforamtionState(true);
+          setInformationState(true);
         }
       });
   }
@@ -194,7 +194,7 @@ function ShoppingCartPage() {
               if (message == "Order submitted") {
                 navigate("/Home");
               } else {
-                setInforamtionState(false);
+                setInformationState(false);
               }
             }}
           >
