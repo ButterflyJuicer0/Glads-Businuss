@@ -3,7 +3,7 @@ import { useState } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
 
-import { Button, Modal } from "react-bootstrap";
+import { Button, Modal, Spinner } from "react-bootstrap";
 import { useEffectOnce } from "react-use";
 
 function LoginPage() {
@@ -12,7 +12,7 @@ function LoginPage() {
     password: "",
     type: -1,
   });
-
+  const [modalState, setModalState] = useState(false);
   const [loginResultModal, setLoginResultModal] = useState(false);
   const [message, setMessage] = useState("");
   const loginType = ["userLogin", "adminLogin", "chefLogin"];
@@ -47,13 +47,15 @@ function LoginPage() {
     }
   });
   function handleSubmit() {
+    setModalState(true);
     axios
-      .post("http://localhost:8080/common/login", {
+      .post("http://34.124.216.17:8080/common/login", {
         type: loginType[loginForm.type],
         password: loginForm.password,
         username: loginForm.username,
       })
       .then((res) => {
+        setModalState(false);
         if (res.status == 200) {
           if (res.data.code == 1) {
             localStorage.setItem("type", loginType[loginForm.type]);
@@ -66,7 +68,7 @@ function LoginPage() {
             setLoginResultModal(true);
           }
         } else {
-          setMessage("Input error");
+          setMessage("Network error");
           setLoginResultModal(true);
         }
       })
@@ -87,6 +89,12 @@ function LoginPage() {
             Confirm
           </Button>
         </Modal.Footer>
+      </Modal>
+
+      <Modal show={modalState} className="text-center">
+        <Modal.Body>
+          <Spinner></Spinner>
+        </Modal.Body>
       </Modal>
 
       <div className="container-fluid col-9 rounded loginPage border-danger d-flex align-items-center justify-content-center aligncenter">

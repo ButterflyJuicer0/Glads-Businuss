@@ -16,7 +16,7 @@ function ChefSelect() {
   useEffectOnce(() => {
     axios({
       method: "get",
-      url: "http://localhost:8082/user/chef",
+      url: "http://34.87.70.176:8082/user/chef",
       headers: {
         token: localStorage.getItem("token"),
       },
@@ -27,7 +27,7 @@ function ChefSelect() {
 
   useEffectOnce(() => {
     axios
-      .get("http://localhost:8082/user/category/show", {
+      .get("http://34.87.70.176:8082/user/category/show", {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -70,7 +70,7 @@ function ChefSelect() {
               className="btn btn-warning"
               onClick={() => {
                 axios({
-                  url: "http://localhost:8082/user/chef/",
+                  url: "http://34.87.70.176:8082/user/chef/",
                   method: "get",
                   headers: {
                     token: localStorage.getItem("token"),
@@ -91,7 +91,8 @@ function ChefSelect() {
                   className="btn btn-secondary"
                   onClick={() => {
                     axios({
-                      url: "http://localhost:8082/user/chef/" + category["id"],
+                      url:
+                        "http://34.87.70.176:8082/user/chef/" + category["id"],
                       method: "get",
                       headers: {
                         token: localStorage.getItem("token"),

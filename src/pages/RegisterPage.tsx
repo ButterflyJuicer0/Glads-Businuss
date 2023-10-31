@@ -26,7 +26,7 @@ function RegisterPage() {
 
   function handleRegisterSubmit() {
     axios
-      .post("http://localhost:8081/user/register", {
+      .post("http://34.87.70.176:8081/user/register", {
         idNumber: form.idNumber,
         name: form.name,
         password: form.password,

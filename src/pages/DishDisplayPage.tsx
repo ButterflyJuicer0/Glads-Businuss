@@ -15,7 +15,7 @@ function DishDisplayPage() {
     setLoadingState(true);
     axios
       .put(
-        "http://localhost:8083/user/shoppingcart/add",
+        "http://34.143.218.205:8083/user/shoppingcart/add",
         {
           chefId: location.state.chef.id,
           dishId: dishId,
@@ -34,7 +34,7 @@ function DishDisplayPage() {
   useEffectOnce(() => {
     axios({
       method: "get",
-      url: "http://localhost:8082/user/chef/dish/show",
+      url: "http://34.87.70.176:8082/user/chef/dish/show",
       params: {
         chefId: location.state.chef.id,
       },

@@ -14,7 +14,7 @@ const NavBar = () => {
 
   function handleLogout() {
     localStorage.clear();
-    navigate("/Home");
+    navigate("/");
   }
   function handleAddress() {
     navigate("/AddressManagementPage");
