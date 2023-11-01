@@ -47,6 +47,12 @@ function LoginPage() {
     }
   });
   function handleSubmit() {
+    if (loginForm.type == 1) {
+      window.location.href = "http://34.124.175.21:80/admin";
+    } else if (loginForm.type == 2) {
+      window.location.href = "http://34.124.175.21:80/chef";
+    }
+
     setModalState(true);
     axios
       .post("http://34.124.216.17:8080/common/login", {
@@ -74,6 +80,7 @@ function LoginPage() {
       })
       .then()
       .catch(() => {
+        setModalState(false);
         setMessage("Input Error");
         setLoginResultModal(true);
       });
