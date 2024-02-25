@@ -10,7 +10,8 @@ import {
   Spinner,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
+const UserCartAPI = import.meta.env.VITE_API_UserCart;
+const UserOrderAPI = import.meta.env.VITE_API_UserOrder;
 function ShoppingCartPage() {
   const [shoppingCart, setShoppingCart] = useState([]);
   const [modalState, setModalState] = useState(false);
@@ -26,7 +27,7 @@ function ShoppingCartPage() {
   const navigate = useNavigate();
   function getAddress() {
     axios
-      .get("http://34.143.218.205:8085/user/address/show", {
+      .get(`${UserCartAPI}/user/address/show`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -37,7 +38,7 @@ function ShoppingCartPage() {
   }
   function getTotalPrice() {
     axios
-      .get("http://34.143.218.205:8083/user/shoppingcart/total", {
+      .get(`${UserCartAPI}/user/shoppingcart/total`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -48,7 +49,7 @@ function ShoppingCartPage() {
   }
   function getShoppingCart() {
     axios
-      .get("http://34.143.218.205:8083/user/shoppingcart/show/dishes", {
+      .get(`${UserCartAPI}/user/shoppingcart/show/dishes`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -61,7 +62,7 @@ function ShoppingCartPage() {
 
   function handleReset() {
     axios
-      .delete("http://34.143.218.205:8083/user/shoppingcart", {
+      .delete(`${UserCartAPI}/user/shoppingcart`, {
         headers: { token: localStorage.getItem("token") },
       })
       .then(() => getShoppingCart());
@@ -71,7 +72,7 @@ function ShoppingCartPage() {
     setModalState(true);
     axios
       .put(
-        "http://34.143.218.205:8083/user/shoppingcart/add",
+        `${UserCartAPI}/user/shoppingcart/add`,
         {
           chefId: chefId,
           dishId: dishId,
@@ -92,7 +93,7 @@ function ShoppingCartPage() {
     setModalState(true);
     axios
       .put(
-        "http://34.143.218.205:8083/user/shoppingcart/remove",
+        `${UserCartAPI}/user/shoppingcart/remove`,
         {
           chefId: chefId,
           dishId: dishId,
@@ -114,7 +115,7 @@ function ShoppingCartPage() {
     console.log(localStorage.getItem("token"));
     axios
       .post(
-        "http://34.143.218.205:8084/user/order/submit",
+        `${UserOrderAPI}/user/order/submit`,
         {
           addressId: form.currentAddress,
           remark: form.remark,
@@ -140,7 +141,7 @@ function ShoppingCartPage() {
             setCheckoutModalState(false);
             setInformationState(true);
             axios
-              .delete("http://34.143.218.205:8083/user/shoppingcart", {
+              .delete(`${UserCartAPI}/user/shoppingcart`, {
                 headers: {
                   token: localStorage.getItem("token"),
                 },

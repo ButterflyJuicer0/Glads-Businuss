@@ -3,6 +3,7 @@ import axios from "axios";
 import { useState } from "react";
 
 import { Button, Modal, ModalBody, Spinner } from "react-bootstrap";
+const UserAddressAPI = import.meta.env.VITE_API_UserAddress;
 
 function AddressManagementPage() {
   const [addresses, setAddresses] = useState([]);
@@ -32,7 +33,7 @@ function AddressManagementPage() {
     //获取当前地址列表
     setSpinnerState(true);
     axios
-      .get("http://34.143.218.205:8085/user/address/show", {
+      .get(`${UserAddressAPI}/user/address/show`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -63,7 +64,7 @@ function AddressManagementPage() {
       //Add new address
       axios
         .post(
-          "http://34.143.218.205:8085/user/address/add",
+          "${UserAddressAPI}/user/address/add",
           {
             consignee: form.consignee,
             detailLocation: form.detailLocation,
@@ -85,7 +86,7 @@ function AddressManagementPage() {
       //Modify current Address
       axios
         .put(
-          "http://34.143.218.205:8085/user/address/modify",
+          "${UserAddressAPI}/user/address/modify",
           {
             id: changeIdNumber,
             consignee: form.consignee,
@@ -115,7 +116,7 @@ function AddressManagementPage() {
     //修改当前地址为默认地址
     axios
       .put(
-        "http://34.143.218.205:8085/user/address/default",
+        "${UserAddressAPI}/user/address/default",
         {
           id: id,
           consignee: form.consignee,
@@ -237,7 +238,7 @@ function AddressManagementPage() {
             onClick={() => {
               axios({
                 method: "delete",
-                url: "http://34.143.218.205:8085/user/address/remove",
+                url: `${UserAddressAPI}/user/address/remove`,
                 params: {
                   id: changeIdNumber,
                 },

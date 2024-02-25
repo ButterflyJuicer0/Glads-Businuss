@@ -4,7 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Button, Image, ListGroup, Modal, Spinner } from "react-bootstrap";
 import "../CSS/DishDisplayPage.css";
-
+const UserCartAPI = import.meta.env.VITE_API_UserCart;
+const UserSearchAPI = import.meta.env.VITE_API_UserSearch;
 function DishDisplayPage() {
   const location = useLocation();
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ function DishDisplayPage() {
     setLoadingState(true);
     axios
       .put(
-        "http://34.143.218.205:8083/user/shoppingcart/add",
+        `${UserCartAPI}/user/shoppingcart/add`,
         {
           chefId: location.state.chef.id,
           dishId: dishId,
@@ -34,7 +35,7 @@ function DishDisplayPage() {
   useEffectOnce(() => {
     axios({
       method: "get",
-      url: "http://34.87.70.176:8082/user/chef/dish/show",
+      url: `${UserSearchAPI}/user/chef/dish/show`,
       params: {
         chefId: location.state.chef.id,
       },

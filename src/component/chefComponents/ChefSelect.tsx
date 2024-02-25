@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { Button, Modal } from "react-bootstrap";
 
+const UserSearchAPI = import.meta.env.VITE_API_UserSearch;
 function ChefSelect() {
   const [chefs, setChefs] = useState([]);
   const [modalState, setModalState] = useState(false);
@@ -16,7 +17,7 @@ function ChefSelect() {
   useEffectOnce(() => {
     axios({
       method: "get",
-      url: "http://34.87.70.176:8082/user/chef",
+      url: `${UserSearchAPI}/user/chef`,
       headers: {
         token: localStorage.getItem("token"),
       },
@@ -27,7 +28,7 @@ function ChefSelect() {
 
   useEffectOnce(() => {
     axios
-      .get("http://34.87.70.176:8082/user/category/show", {
+      .get(`${UserSearchAPI}/user/category/show`, {
         headers: {
           token: localStorage.getItem("token"),
         },
@@ -70,7 +71,7 @@ function ChefSelect() {
               className="btn btn-warning"
               onClick={() => {
                 axios({
-                  url: "http://34.87.70.176:8082/user/chef/",
+                  url: `${UserSearchAPI}/user/chef/`,
                   method: "get",
                   headers: {
                     token: localStorage.getItem("token"),
@@ -91,8 +92,7 @@ function ChefSelect() {
                   className="btn btn-secondary"
                   onClick={() => {
                     axios({
-                      url:
-                        "http://34.87.70.176:8082/user/chef/" + category["id"],
+                      url: `${UserSearchAPI}/user/chef/` + category["id"],
                       method: "get",
                       headers: {
                         token: localStorage.getItem("token"),

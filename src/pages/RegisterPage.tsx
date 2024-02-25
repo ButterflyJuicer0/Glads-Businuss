@@ -3,7 +3,7 @@ import axios from "axios";
 
 import RegisterSuccessAlert from "../component/registerPageComponent/RegisterSuccessAlert.tsx";
 import { useNavigate } from "react-router-dom";
-
+const UserRegisterAPI = import.meta.env.VITE_API_UserRegister;
 function RegisterPage() {
   const [form, setForm] = useState({
     username: "",
@@ -26,7 +26,7 @@ function RegisterPage() {
 
   function handleRegisterSubmit() {
     axios
-      .post("http://34.87.70.176:8081/user/register", {
+      .post(`${UserRegisterAPI}/user/register`, {
         idNumber: form.idNumber,
         name: form.name,
         password: form.password,

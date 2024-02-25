@@ -5,6 +5,7 @@ import { Link, useNavigate } from "react-router-dom";
 
 import { Button, Modal, Spinner } from "react-bootstrap";
 import { useEffectOnce } from "react-use";
+const CommonServiceAPI = import.meta.env.VITE_API_CommonService;
 
 function LoginPage() {
   const [loginForm, setLoginForm] = useState({
@@ -50,40 +51,50 @@ function LoginPage() {
     if (loginForm.type == 1) {
       window.location.href = "http://34.124.175.21:80/admin";
     } else if (loginForm.type == 2) {
-      window.location.href = "http://34.124.175.21:80/chef";
+      window.location.href = "http://34.124.224.154/";
     }
 
     setModalState(true);
-    axios
-      .post("http://34.124.216.17:8080/common/login", {
-        type: loginType[loginForm.type],
-        password: loginForm.password,
-        username: loginForm.username,
-      })
-      .then((res) => {
-        setModalState(false);
-        if (res.status == 200) {
-          if (res.data.code == 1) {
-            localStorage.setItem("type", loginType[loginForm.type]);
-            localStorage.setItem("userName", res.data.data.username);
-            localStorage.setItem("name", res.data.data.name);
-            localStorage.setItem("token", res.data.data.token);
-            navigate("/Home");
-          } else if (res.data.code == 0) {
-            setMessage(res.data["msg"]);
+    if (
+      loginForm.password.indexOf("'") > -1 ||
+      loginForm.password.indexOf('"') > -1
+    ) {
+      setModalState(false);
+      setMessage("Password can not contain ' or \" ");
+
+      setLoginResultModal(true);
+    } else {
+      axios
+        .post(`${CommonServiceAPI}/common/login`, {
+          type: loginType[loginForm.type],
+          password: loginForm.password,
+          username: loginForm.username,
+        })
+        .then((res) => {
+          setModalState(false);
+          if (res.status == 200) {
+            if (res.data.code == 1) {
+              localStorage.setItem("type", loginType[loginForm.type]);
+              localStorage.setItem("userName", res.data.data.username);
+              localStorage.setItem("name", res.data.data.name);
+              localStorage.setItem("token", res.data.data.token);
+              navigate("/Home");
+            } else if (res.data.code == 0) {
+              setMessage(res.data["msg"]);
+              setLoginResultModal(true);
+            }
+          } else {
+            setMessage("Network error");
             setLoginResultModal(true);
           }
-        } else {
-          setMessage("Network error");
+        })
+        .then()
+        .catch(() => {
+          setModalState(false);
+          setMessage("Wrong username or password");
           setLoginResultModal(true);
-        }
-      })
-      .then()
-      .catch(() => {
-        setModalState(false);
-        setMessage("Input Error");
-        setLoginResultModal(true);
-      });
+        });
+    }
   }
 
   return (

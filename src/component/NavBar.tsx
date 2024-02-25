@@ -4,7 +4,6 @@ import ChefsSelectPage from "../pages/ChefsSelectPage.tsx";
 import LoginPage from "../pages/LoginPage.tsx";
 import RegisterPage from "../pages/RegisterPage.tsx";
 import "../App.css";
-
 import { useEffect } from "react";
 import DishDisplayPage from "../pages/DishDisplayPage.tsx";
 import ShoppingCartPage from "../pages/ShoppingCartPage.tsx";
